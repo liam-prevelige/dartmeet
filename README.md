@@ -1,0 +1,2 @@
+# dartmeet
+DartMeet’s mission is to give Dartmouth students and alumni a platform to socialize with one another while away from campus.   While off-campus, Dartmouth affiliates have trouble connecting with one another; no regional mechanism exists to find and connect these groups. DartMeet is the solution, providing a Dartmouth-specific, location-centered social media platform that displays students and alumni in the surrounding area.
