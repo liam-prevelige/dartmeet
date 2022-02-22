@@ -1,21 +1,95 @@
 import * as React from 'react';
-import MapView, { Callout, Circle, Marker } from 'react-native-maps';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import MapView, { Callout, CalloutSubview, Circle, Marker } from 'react-native-maps';
+import { StyleSheet, Text, View, Dimensions, Button } from 'react-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import {StackNavigator} from 'react-navigation';
+
 
 export default function App() {
   const [pin, setPin] = React.useState({
-    latitude: 37.72587510682851,
-    longitude: -122.46631812180071
+    latitude: 47.55864303425462,
+    longitude: -122.38518950588768
   })
-  // Commented out because it was part of the search bar that I couldn't get working
-  // const [region, setRegion] = React.useState({
-  //   latitude: 37.72587510682851,
-  //   longitude: -122.46631812180071,
-  //   latitudeDelta: 0.0922,
-  //   longitudeDelta: 0.0421
-  // })
-  const distancebtw = computeDistance([37.72662773200411, -122.46718976077723], [pin.latitude, pin.longitude])
+  const [user1, setUser1] = React.useState({
+    latitude: 47.57536841950295,
+    longitude: -122.37660248999161
+  })
+  const [user2, setUser2] = React.useState({
+    latitude: 47.550665501300536,
+    longitude: -122.38336323883325
+  })
+  const [user3, setUser3] = React.useState({
+    latitude: 47.59141890802103,
+    longitude: -122.31629358730771
+  })
+  const [user4, setUser4] = React.useState({
+    latitude: 47.621424556810496,
+    longitude: -122.32327847726754
+  })
+  const [user5, setUser5] = React.useState({
+    latitude: 47.63275892854295,
+    longitude: -122.39278227695452
+  })
+  const [user6, setUser6] = React.useState({
+    latitude: 47.51199567885955,
+    longitude: -122.35929902504219
+  })
+  
+  const StyledMarker = ({name}) => (
+    <View style = {{
+      width: 60,
+      height: 60, 
+      borderRadius: 30, 
+      borderColor: "#FFFFFF",
+      backgroundColor: "#006633",
+      display: 'flex',
+      justifyContent: 'space-evenly',
+      alignItems: 'center',
+      alignContent: 'center',
+      flexWrap: 'wrap',
+      textAlignVertical: "center",
+      textAlign:"center"
+    }}
+    >
+      <Text style={{color: "white"}}>{name}</Text>
+    </View>
+  );
+
+  const Popup = ({name, interests, major, aboutMe}) => {
+    return (
+      <View style = {{
+        width: (Dimensions.get('window').width)*0.8,
+        height: "100%", 
+        borderRadius: 30, 
+        backgroundColor: "#FFFFFF",
+        display: 'flex',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        alignContent: 'center',
+        flexWrap: 'wrap',
+        textAlign:"center"
+      }}
+      >
+        {/* <Button
+        title="Press me"
+        style={{
+          fontWeight: "bold", 
+          alignContent: "right",
+          textAlign:"right",
+          color: "#006633",
+          display: 'flex'
+        }}
+        onPress={() => Alert.alert('Simple Button pressed')}
+      /> */}
+        <Text style={{fontWeight: "bold", color: "#006633"}}>{name}, <Button title= "Chat"
+        onPress={() => Alert.alert('Simple Button pressed')}></Button></Text>
+        <Text style={{color: "#35DA29"}}>Interested in:</Text><Text style={{color: "#35DA29"}}>{interests}</Text>
+        <Text style={{color: "#006633"}}>Major:</Text><Text style={{color: "#006633"}}>{major}</Text>
+        <Text style={{fontWeight: "bold", color: "#006633"}}>About Me:</Text><Text style={{color: "#006633"}}>{aboutMe}</Text>
+      </View>
+    );
+  };
+
   return (
     <View style={StyleSheet}>
       {/* Commented out because it was part of the search bar that I couldn't get working */}
@@ -51,35 +125,116 @@ export default function App() {
     {/* setting up mapview, putting down coordinates and pins, allowing movement of the "your house pin" */}
       <MapView style={styles.map}     
       initialRegion={{
-      latitude: 37.72662773200411,
-      longitude: -122.46718976077723,
+      latitude: 47.55864303425462,
+      longitude: -122.38518950588768,
       latitudeDelta: 0.0922,
       longitudeDelta: 0.0421,
     }}
     provider = "google"
     >
-      <Marker coordinate={{
-        latitude: 37.72662773200411,
-        longitude: -122.46718976077723
-      }}
-        pinColor="purple"
+      <Marker coordinate={pin}
+        pinColor="red"
       >
         <Callout>
           <Text>
-            Piper's House
+            Your Location
           </Text>
         </Callout>
         </Marker>
-        <Circle center={{
-          latitude: 37.72662773200411,
-          longitude: -122.46718976077723
-        }}
+        <Circle center={pin}
           radius={500}
           >
         </Circle>
 
+        <Marker coordinate={user1}>
+          <StyledMarker name="Sarah D'22"/>
+          <Callout>
+          <Text>
+            Sarah Korb '22
+          </Text>
+            <CalloutSubview>
+              <Text>
+                
+              </Text>
+            </CalloutSubview>
+        </Callout>
+        </Marker>
+
+        <Marker coordinate={user2}>
+          <StyledMarker name="Casey D'18"/>
+          <Callout>
+          <Popup 
+              name="Casey Monarch '18"
+              interests="Friends, Roommates"
+              major="Biology"
+              aboutMe="Plant biology researcher working understanding the complexities of iron in the photosynthesis pathway! I love being outside and am looking for friends to come on walks in the park with me :)"
+              />
+            <CalloutSubview>
+            </CalloutSubview>
+        </Callout>
+        </Marker>
+
+        <Marker coordinate={user3}>
+          <StyledMarker name="Viney D'21"/>
+          <Callout>
+          <Popup 
+              name="Sarah Korb '22"
+              interests="Friends, Roommates"
+              major="Computer Science, Art"
+              aboutMe="Plant biology researcher working understanding the complexities of iron in the photosynthesis pathway! I love being outside and am looking for friends to come on walks in the park with me :)"
+              />
+            <CalloutSubview>
+            </CalloutSubview>
+        </Callout>
+        </Marker>
+
+        <Marker coordinate={user4}>
+          <StyledMarker name="Liam D'23"/>
+          <Callout>
+          <Popup 
+              name="Sarah Korb '22"
+              interests="Friends, Roommates"
+              major="Computer Science, Art"
+              aboutMe="Plant biology researcher working understanding the complexities of iron in the photosynthesis pathway! I love being outside and am looking for friends to come on walks in the park with me :)"
+              />
+            <CalloutSubview>
+            </CalloutSubview>
+        </Callout>
+        </Marker>
+
+        <Marker coordinate={user5}>
+          <StyledMarker name="Piper D'23"/>
+          <Callout>
+          <Popup 
+              name="Sarah Korb '22"
+              interests="Friends, Roommates"
+              major="Computer Science, Art"
+              aboutMe="Plant biology researcher working understanding the complexities of iron in the photosynthesis pathway! I love being outside and am looking for friends to come on walks in the park with me :)"
+              />
+            <CalloutSubview>
+            </CalloutSubview>
+        </Callout>
+        </Marker>
+
+        <Marker coordinate={user6}>
+          <StyledMarker name="Larry D'15"/>
+          <Callout>
+          <Popup 
+              name="Sarah Korb '22"
+              interests="Friends, Roommates"
+              major="Computer Science, Art"
+              aboutMe="Plant biology researcher working understanding the complexities of iron in the photosynthesis pathway! I love being outside and am looking for friends to come on walks in the park with me :)"
+              />
+            <CalloutSubview>
+            </CalloutSubview>
+        </Callout>
+        </Marker>
+
+
+{/* 
+
         <Marker coordinate={pin}
-        pinColor="red"
+        pinColor="green"
         draggable = {true}
         onDragStart = {(e) => {
           console.log("Drag start", e.nativeEvent.coordinates)
@@ -94,14 +249,14 @@ export default function App() {
       >
         <Callout>
           <Text>
-            Your House is {distancebtw.toFixed(2)} km from Piper's House
+            Miles's House is {distancebtw.toFixed(2)} km from Piper's House
           </Text>
         </Callout>
         </Marker>
         <Circle center={pin}
           radius={500}
           >
-        </Circle>
+        </Circle> */}
       </MapView>
 
     </View>
@@ -136,6 +291,8 @@ function computeDistance([prevLat, prevLong], [lat, long]) {
     )
   );
 }
+
+
 
 function toRad(angle) {
   return (angle * Math.PI) / 180;
