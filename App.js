@@ -1,9 +1,8 @@
 import * as React from 'react';
 import MapView, { Callout, CalloutSubview, Circle, Marker } from 'react-native-maps';
-import { StyleSheet, Text, View, Dimensions, Button } from 'react-native';
+import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import {StackNavigator} from 'react-navigation';
-
+import {Button as Butt} from 'react-native-paper';
 
 export default function App() {
   const [pin, setPin] = React.useState({
@@ -34,7 +33,20 @@ export default function App() {
     latitude: 47.51199567885955,
     longitude: -122.35929902504219
   })
-  
+
+  // const AppButton = ({ onPress, icon, title, backgroundColor }) => (
+  //   <View style={styles.appButtonContainer}>
+  //     <Icon.Button
+  //       name={icon}
+  //       backgroundColor={backgroundColor}
+  //       onPress={onPress}
+  //       style={styles.appButton}
+  //     >
+  //       <Text style={styles.appButtonText}>{title}</Text>
+  //     </Icon.Button>
+  //   </View>
+  // );
+
   const StyledMarker = ({name}) => (
     <View style = {{
       width: 60,
@@ -55,7 +67,7 @@ export default function App() {
     </View>
   );
 
-  const Popup = ({name, interests, major, aboutMe}) => {
+  const Popup = ({name, interests, major, currentCompany, aboutMe}) => {
     return (
       <View style = {{
         width: (Dimensions.get('window').width)*0.8,
@@ -66,25 +78,23 @@ export default function App() {
         justifyContent: 'space-evenly',
         alignItems: 'center',
         alignContent: 'center',
-        flexWrap: 'wrap',
         textAlign:"center"
       }}
       >
-        {/* <Button
-        title="Press me"
-        style={{
-          fontWeight: "bold", 
-          alignContent: "right",
-          textAlign:"right",
-          color: "#006633",
-          display: 'flex'
-        }}
-        onPress={() => Alert.alert('Simple Button pressed')}
-      /> */}
-        <Text style={{fontWeight: "bold", color: "#006633"}}>{name}, <Button title= "Chat"
-        onPress={() => Alert.alert('Simple Button pressed')}></Button></Text>
-        <Text style={{color: "#35DA29"}}>Interested in:</Text><Text style={{color: "#35DA29"}}>{interests}</Text>
-        <Text style={{color: "#006633"}}>Major:</Text><Text style={{color: "#006633"}}>{major}</Text>
+        <Text style={{fontWeight: "bold", color: "#006633"}}>{name}</Text>
+        <Butt
+        icon="chat"
+        color="#006633"
+        onPress={() => console.log('Pressed')}
+        >
+          <Text style={{
+            color: "#006633",
+            textDecorationLine: 'underline'
+            }}>Chat</Text>
+      </Butt>
+        <Text style={{color: "#35DA29"}}>Interested in: {interests}</Text>
+        <Text style={{color: "#006633"}}>Major: {major}</Text>
+        <Text style={{color: "#006633"}}>Current Company: {currentCompany}</Text>
         <Text style={{fontWeight: "bold", color: "#006633"}}>About Me:</Text><Text style={{color: "#006633"}}>{aboutMe}</Text>
       </View>
     );
@@ -141,22 +151,18 @@ export default function App() {
           </Text>
         </Callout>
         </Marker>
-        <Circle center={pin}
-          radius={500}
-          >
-        </Circle>
+
 
         <Marker coordinate={user1}>
-          <StyledMarker name="Sarah D'22"/>
+          <StyledMarker name="Tiara D'22"/>
           <Callout>
-          <Text>
-            Sarah Korb '22
-          </Text>
-            <CalloutSubview>
-              <Text>
-                
-              </Text>
-            </CalloutSubview>
+          <Popup 
+              name="Tiara Jones D'22"
+              interests="Friends, Work Advice"
+              major="Computer Science"
+              currentCompany="Microsoft"
+              aboutMe="Software Engineer looking for career advice in the technology world! Also looking for friends to grab coffee and explore local concerts."
+              />
         </Callout>
         </Marker>
 
@@ -164,24 +170,24 @@ export default function App() {
           <StyledMarker name="Casey D'18"/>
           <Callout>
           <Popup 
-              name="Casey Monarch '18"
+              name="Casey Monarch D'18"
               interests="Friends, Roommates"
               major="Biology"
+              currentCompany="UW Biology"
               aboutMe="Plant biology researcher working understanding the complexities of iron in the photosynthesis pathway! I love being outside and am looking for friends to come on walks in the park with me :)"
               />
-            <CalloutSubview>
-            </CalloutSubview>
         </Callout>
         </Marker>
 
         <Marker coordinate={user3}>
-          <StyledMarker name="Viney D'21"/>
+          <StyledMarker name="Mitch D'21"/>
           <Callout>
           <Popup 
-              name="Sarah Korb '22"
-              interests="Friends, Roommates"
-              major="Computer Science, Art"
-              aboutMe="Plant biology researcher working understanding the complexities of iron in the photosynthesis pathway! I love being outside and am looking for friends to come on walks in the park with me :)"
+              name="Mitch Jefferies D'21"
+              interests="Work Advice, Roommates"
+              major="English, Psychology"
+              currentCompany="Puget Sound Publishing"
+              aboutMe="Just started as an assistant publisher and looking for advice in the publishing field. Also looking for roommates who like cooking!"
               />
             <CalloutSubview>
             </CalloutSubview>
@@ -189,12 +195,12 @@ export default function App() {
         </Marker>
 
         <Marker coordinate={user4}>
-          <StyledMarker name="Liam D'23"/>
+          <StyledMarker name="Jeanie D'23"/>
           <Callout>
           <Popup 
-              name="Sarah Korb '22"
-              interests="Friends, Roommates"
-              major="Computer Science, Art"
+              name="Jeanie Micheals '22"
+              interests="Friends"
+              major=""
               aboutMe="Plant biology researcher working understanding the complexities of iron in the photosynthesis pathway! I love being outside and am looking for friends to come on walks in the park with me :)"
               />
             <CalloutSubview>
@@ -203,11 +209,11 @@ export default function App() {
         </Marker>
 
         <Marker coordinate={user5}>
-          <StyledMarker name="Piper D'23"/>
+          <StyledMarker name="Holland D'23"/>
           <Callout>
           <Popup 
-              name="Sarah Korb '22"
-              interests="Friends, Roommates"
+              name="Holland Resnikov '22"
+              interests="Roommates"
               major="Computer Science, Art"
               aboutMe="Plant biology researcher working understanding the complexities of iron in the photosynthesis pathway! I love being outside and am looking for friends to come on walks in the park with me :)"
               />
@@ -273,6 +279,13 @@ const styles = StyleSheet.create({
   map: {
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
+  },
+  appButtonContainer: {
+    elevation: 8,
+    backgroundColor: "#006633",
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 10
   },
 });
 
