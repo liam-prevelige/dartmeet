@@ -10,32 +10,32 @@ function HomeScreen({ navigation }) {
 
   // constants for the locations of users 
   const [pin, setPin] = React.useState({
-    latitude: 47.55864303425462,
-    longitude: -122.38518950588768
+    latitude: 47.56269353206304,
+    longitude: -122.37986431128218
   })
   const [user1, setUser1] = React.useState({
-    latitude: 47.57536841950295,
-    longitude: -122.37660248999161
+    latitude: 47.58055140458414,
+    longitude: -122.37778347081458
   })
   const [user2, setUser2] = React.useState({
-    latitude: 47.550665501300536,
-    longitude: -122.38336323883325
+    latitude: 47.554094024744714,
+    longitude: -122.37996713330165
   })
   const [user3, setUser3] = React.useState({
-    latitude: 47.59141890802103,
-    longitude: -122.31629358730771
+    latitude: 47.59292251379077,
+    longitude: -122.31851731909684
   })
   const [user4, setUser4] = React.useState({
-    latitude: 47.621424556810496,
-    longitude: -122.32327847726754
+    latitude: 47.631416525536125,
+    longitude: -122.31595453281194
   })
   const [user5, setUser5] = React.useState({
-    latitude: 47.63275892854295,
-    longitude: -122.39278227695452
+    latitude: 47.641461840740696,
+    longitude: -122.39924460715426
   })
   const [user6, setUser6] = React.useState({
-    latitude: 47.51199567885955,
-    longitude: -122.35929902504219
+    latitude: 47.512394445083565,
+    longitude: -122.36108759747839
   })
 
 
@@ -62,7 +62,7 @@ function HomeScreen({ navigation }) {
 
 
   // constant for the custom popup representing an alum's information
-  const Popup = ({name, interests, major, currentCompany, aboutMe}) => {
+  const Popup = ({name, interests, major, currentCompany, pronouns, aboutMe}) => {
     return (
       <View style = {{
         width: (Dimensions.get('window').width)*0.8,
@@ -77,6 +77,7 @@ function HomeScreen({ navigation }) {
       }}
       >
         <Text style={{fontWeight: "bold", color: "#006633"}}>{name}</Text>
+        <Text style={{color: "#000000"}}>Pronouns: {pronouns}</Text>
         <Butt
         icon="account"
         color="#006633"
@@ -121,8 +122,8 @@ function HomeScreen({ navigation }) {
       
       <MapView style={styles.map}     
       initialRegion={{
-      latitude: 47.55864303425462,
-      longitude: -122.38518950588768,
+      latitude: 47.56269353206304,
+      longitude: -122.37986431128218,
       latitudeDelta: 0.0922,
       longitudeDelta: 0.0421,
     }}
@@ -138,10 +139,11 @@ function HomeScreen({ navigation }) {
         </Callout>
         </Marker>
 
-
         <Marker coordinate={user1}>
           <StyledMarker name="Tiara D'22"/>
-          <Callout>
+          <Callout
+          onPress={() => navigation.navigate('Profile')}
+          >
           <Popup 
               name="Tiara Jones D'22"
               interests="Friends, Work Advice"
@@ -167,12 +169,14 @@ function HomeScreen({ navigation }) {
         </Marker>
 
         <Marker coordinate={user3}>
-          <StyledMarker name="Mitch D'21"/>
-          <Callout>
+          <StyledMarker name="Hugh D'69"/>
+          <Callout
+          onPress={() => navigation.navigate('Profile')}>
           <Popup 
-              name="Mitch Jefferies D'21"
-              interests="Work Advice, Roommates"
-              major="English, Psychology"
+              name="Hugh Jass D'69"
+              interests="Love, Roommates"
+              major="WGSS"
+              pronouns="he/him"
               currentCompany="Puget Sound Publishing"
               aboutMe="Just started as an assistant publisher and looking for advice in the publishing field. Also looking for roommates who like cooking!"
               />
@@ -183,12 +187,16 @@ function HomeScreen({ navigation }) {
 
         <Marker coordinate={user4}>
           <StyledMarker name="Jeanie D'23"/>
-          <Callout>
+          <Callout
+          onPress={() => navigation.navigate('Profile')}
+          >
           <Popup 
-              name="Jeanie Micheals '22"
+              name="Jeanie Micheals '99"
               interests="Friends"
-              major=""
-              aboutMe="Plant biology researcher working understanding the complexities of iron in the photosynthesis pathway! I love being outside and am looking for friends to come on walks in the park with me :)"
+              pronouns="she/hers"
+              major="Government, Philosophy"
+              currentCompany="Seattle City Hall"
+              aboutMe="I've lived in Seattle for 10 years working for City Hall! Connect with me if you want someone to show you this city's secrets."
               />
             <CalloutSubview>
             </CalloutSubview>
@@ -196,13 +204,16 @@ function HomeScreen({ navigation }) {
         </Marker>
 
         <Marker coordinate={user5}>
-          <StyledMarker name="Holland D'23"/>
-          <Callout>
+          <StyledMarker name="Chris D'23"/>
+          <Callout
+          onPress={() => navigation.navigate('Profile')}>
           <Popup 
-              name="Holland Resnikov '22"
-              interests="Roommates"
-              major="Computer Science, Art"
-              aboutMe="Plant biology researcher working understanding the complexities of iron in the photosynthesis pathway! I love being outside and am looking for friends to come on walks in the park with me :)"
+              name="Chris Stenzil '22"
+              interests="Work Advice, Referrals"
+              pronouns="they/them"
+              major="Economics, Government"
+              currentCompany="Bain"
+              aboutMe="Just started at Bain and looking for advice in moving up in the company. Would love to meet for coffee to talk about how to get a raise."
               />
             <CalloutSubview>
             </CalloutSubview>
@@ -210,13 +221,16 @@ function HomeScreen({ navigation }) {
         </Marker>
 
         <Marker coordinate={user6}>
-          <StyledMarker name="Larry D'15"/>
-          <Callout>
+          <StyledMarker name="Rico D'15"/>
+          <Callout
+          onPress={() => navigation.navigate('Profile')}>
           <Popup 
-              name="Sarah Korb '22"
-              interests="Friends, Roommates"
-              major="Computer Science, Art"
-              aboutMe="Plant biology researcher working understanding the complexities of iron in the photosynthesis pathway! I love being outside and am looking for friends to come on walks in the park with me :)"
+              name="Rico Kriesler '22"
+              interests="Friends"
+              major="Mathematics, French"
+              pronouns="he/him"
+              currentCompany="Seattle Public School #14"
+              aboutMe="I'm a first grade teacher at Seattle Public. I love the outdoors and am looking for hiking buddies!"
               />
             <CalloutSubview>
             </CalloutSubview>
